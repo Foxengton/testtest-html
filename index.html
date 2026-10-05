@@ -1,16 +1,87 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
-    <title>testsite.dev</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
   </head>
   <body>
-    <h1>Hello, user</h1>
+    <h1 style="margin: 0 auto">Hello, user</h1>
     <div>Fox prime!!!</div>
     <div>New div</div>
     <img
       src="https://cdn.skillbox.pro/wbd-front/skillbox-static/skillbox.svg"
       alt="Skill-box image!!!"
     />
+
+    <form action="" method="get">
+      <input
+        id="text-input"
+        type="text"
+        value="example"
+        name="input"
+        placeholder="some text"
+      />
+    </form>
+
+    <button id="button-send">Отправить</button>
+
+    <div style="display: block; gap: 30px">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          width: 120px;
+          float: left;
+          margin: 10px;
+        "
+      >
+        <img src="https://placehold.co/600x400" />
+        <img src="https://placehold.co/600x400" />
+        <img src="https://placehold.co/600x400" />
+        <img src="https://placehold.co/600x400" />
+      </div>
+
+      <div id="input-status"></div>
+
+      <div id="example"></div>
+    </div>
+
+    <script>
+      const input = document.getElementById("text-input");
+      const example = document.getElementById("example");
+      const input_status = document.getElementById("input-status");
+
+      input.onclick = (event) => {
+        input_status.innerHTML = "Кликнули на поле";
+      };
+
+      input.onblur = (event) => {
+        input_status.innerHTML = "Поле теперь не в фокусе";
+      };
+
+      input.oninput = (event) => {
+        example.innerHTML = event.currentTarget.value;
+      };
+
+      const button = document.getElementById("button-send");
+
+      button.onclick = (e) => {
+        fetch("https://dummyjson.com/test")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Ошибка сети");
+            }
+            return response.json(); // Преобразуем ответ в JSON
+          })
+          .then((data) => {
+            console.log("Полученные данные:", data);
+          })
+          .catch((error) => {
+            console.error("Произошла ошибка:", error);
+          });
+      };
+    </script>
   </body>
 </html>
